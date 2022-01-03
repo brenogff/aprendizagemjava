@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+	
+		Scanner sc = new Scanner(System.in);
+		double x;
+		double y;
+		double total;
+		
+		System.out.println("Código ----- especificação ----- preço");
+		System.out.println("    1       Cachorro quente     R$ 4.00");
+		System.out.println("    2           X-salada        R$ 4.50");
+		System.out.println("    3           X-bacon         R$ 5.00");
+		System.out.println("    4       Torrada simples     R$ 2.00");
+		System.out.println("    5         Refrigerante      R$ 1.50");
+		
+		System.out.println("Digite o código do item:");
+		x = sc.nextInt();
+		System.out.println("Qual a quantidade:");
+		y = sc.nextInt();
+		
+		if(x == 1) {
+			x = 4.00;
+			total = x * y;
+			System.out.printf ("Total a pagar: %.2f%n" ,total);}
+			else if (x == 2) {
+				x = 4.50;
+				total = x * y;
+				System.out.printf ("Total a pagar: %.2f%n" ,total);
+			}
+			else if (x == 3) {
+				x = 5.00;
+				total = x * y;
+				System.out.printf ("Total a pagar: %.2f%n" ,total);
+			}
+			else if (x == 4) {
+				x = 2.00;
+				total = x * y;
+				System.out.printf ("Total a pagar: %.2f%n" ,total);
+			}
+			else if (x == 5) {
+				x = 1.20;
+				total = x * y;
+				System.out.printf ("Total a pagar: %.2f%n" ,total);
+			}
+		else {System.out.printf ("Erro no sistema, tente novamente.");}
+		
+		sc.close();
+	}
+}
