@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+	
+		Scanner sc = new Scanner(System.in);
+		int x;
+		int y = 0;
+		int i = 0;
+		int a = 0;
+		
+		System.out.println("Posto br");
+		System.out.println("1. Álcool");
+		System.out.println("2. Gasolina");
+		System.out.println("3. Diesel");
+		System.out.println("4. Finalizar");
+		System.out.println("Faça seu pedido: ");
+		x = sc.nextInt();
+		
+		while (x != 4) {
+			
+			switch (x) {
+				case 1:
+					y = y + 1;
+				break;
+				case 2:
+					i = i + 1;
+				break;
+				case 3: 
+					a = a + 1;
+				break;
+				
+			default: 
+				System.out.println("Código inválido");
+			}
+			
+			System.out.println("Faça seu pedido: ");
+			x = sc.nextInt(); 
+		}
+		
+		System.out.println("Muito Obrigado!");
+		System.out.println("Álcool: " + y);
+		System.out.println("Gasolina: " + i);
+		System.out.println("Diesel : " + a);
+		
+		sc.close();
+	}
+}
