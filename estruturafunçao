@@ -1,0 +1,38 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+	
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Digite 3 números inteiros: ");
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		int c = sc.nextInt();
+		
+		int maior = dados(a,b,c);
+		
+		mostrarResultado(maior);
+		
+		sc.close();
+	}
+	
+	public static int dados(int x, int y, int w) {
+		int valor;
+		if (x > y && x > w) {
+			valor = x;
+		}
+		else if (y > w) {
+			valor = y;
+		}
+		else {
+			valor = w;
+		}
+		return valor;
+	}
+	
+	public static void mostrarResultado(int exemplo) {
+		System.out.println("Maior :" + exemplo);
+	}
+}
