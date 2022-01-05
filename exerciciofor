@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+	
+		Scanner sc = new Scanner(System.in);
+		int x;
+		int y;
+		int in = 0;
+		int out = 0;
+		
+		System.out.println("Digite a quantidade de números: ");
+		y = sc.nextInt();
+		
+		for (int i=0; i<y; i++) {
+			System.out.println("Digite um número: ");
+			x=sc.nextInt();
+			if (x>=10 && x<=20) {
+				in = in + 1;
+			}
+			else {
+			out = out + 1;
+			}
+		}
+		
+		System.out.println("in: " + in);
+		System.out.println("out :" + out);
+		
+		sc.close();
+	}
+}
