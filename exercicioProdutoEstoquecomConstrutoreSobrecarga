@@ -1,0 +1,85 @@
+package entidades;
+
+public class Produto {
+
+	public String nome;
+	public double preço;
+	public int quantidade;
+	
+	public Produto(String nome, double preço, int quantidade) {
+		this.nome = nome;
+		this.preço = preço;
+		this.quantidade = quantidade;
+	}
+	
+	public Produto (String nome, double preço) {
+		this.nome = nome;
+		this.preço = preço;
+	}
+	public double valorTotalEstoque() {
+	return preço * quantidade;
+	}
+	
+    public void adicioneProduto(int quantidade) {
+    	this.quantidade = this.quantidade + quantidade;
+    }
+    
+    public void removeProduto (int quantidade) {
+    	this.quantidade = this.quantidade - quantidade;
+    }
+    
+    public String toString() {
+    	return nome 
+    			+ ", $" 
+    			+ preço // para as casas decimais String.format(%.2f", preço)
+    			+ ", " 
+    			+ quantidade 
+    			+ " unidades, Total: $ " 
+    			+ valorTotalEstoque();
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package aplicacação;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+import entidades.Produto;
+
+public class programa {
+
+	public static void main(String[] args) {
+	
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Entrada de Produto data:");
+		System.out.print("Nome: ");
+		String nome = sc.nextLine();
+		System.out.print("Preço: ");
+		double preço = sc.nextDouble();
+		
+		
+		Produto produto = new Produto(nome, preço);
+		
+		System.out.println("Produto data:" + produto.toString());
+		
+		System.out.println();
+		System.out.println("Digite o número de produtos adicionados ao estoque: ");
+		int quantidade = sc.nextInt();
+		produto.adicioneProduto(quantidade);
+		
+		System.out.println();
+		System.out.println("Produto data:" + produto.toString());
+		
+		System.out.println();
+		System.out.println("Digite o número de produtos removidos ao estoque: ");
+		quantidade = sc.nextInt();
+		produto.removeProduto (quantidade);
+		
+		System.out.println();
+		System.out.println("Produto data:" + produto.toString());
+		
+		sc.close();
+	}
+}
