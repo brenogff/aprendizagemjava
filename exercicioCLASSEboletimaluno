@@ -1,0 +1,57 @@
+package entidades;
+
+public class Estudante {
+	
+	public String nome;
+	public double n1, n2, n3;
+	public double resultado;
+	
+	public double notaFinal() {
+		return n1 + n2 + n3;
+	}
+
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package aplicacação;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+import entidades.Estudante;
+
+public class programa {
+
+	public static void main(String[] args) {
+	
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		double restante;
+		
+		Estudante estudante = new Estudante();
+		System.out.println("Boletim do aluno:");
+		System.out.print("Nome: ");
+		estudante.nome = sc.nextLine();
+		System.out.print("Primeira nota: ");
+		estudante.n1 = sc.nextDouble();
+		System.out.print("Segunda nota: ");
+		estudante.n2 = sc.nextDouble();
+		System.out.print("Terceira nota: ");
+		estudante.n3 = sc.nextDouble();
+		
+		System.out.println("Resultado final:" + estudante.nome + ", nota final: " + estudante.notaFinal());
+		
+		if (estudante.notaFinal() >= 60 && estudante.notaFinal() <=100) {
+			System.out.println("Passou!");
+		}
+		else if (estudante.notaFinal() > 100) {
+			System.out.println("Nota inválida. Tente novamente.");
+		}
+		else {
+			System.out.println("Infelizmente não passou");
+			restante = 60 - estudante.notaFinal();
+			System.out.println("A quantidade que faltou para atingir a nota mínima foi: " + restante);
+		}
+		
+		sc.close();
+	}
+}
