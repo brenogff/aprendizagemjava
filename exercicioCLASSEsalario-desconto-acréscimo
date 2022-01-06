@@ -1,0 +1,61 @@
+package entidades;
+
+public class Funcionario {
+	
+	public String nome;
+	public double salario;
+	public double taxa;
+	
+	public double novoSalario() {
+		return salario - taxa;
+	}
+	
+	 public void calculoSalario(double porcentagem) {
+		 this.salario = this.salario + (this.salario * porcentagem/ 100);
+	    }
+	
+	public double salarioTaxa() {
+		double porcentagem = 0;
+		double novoSalario = this.salario + (salario * porcentagem / 100);
+		return novoSalario;
+		
+	}
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package aplicacação;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+import entidades.Funcionario;
+
+public class programa {
+
+	public static void main(String[] args) {
+	
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		Funcionario funcionario = new Funcionario();
+		System.out.println("Programa de controle de Funcionários:");
+		System.out.print("Nome: ");
+		funcionario.nome = sc.nextLine();
+		System.out.print("Salário: ");
+		funcionario.salario = sc.nextDouble();
+		System.out.print("Taxa: ");
+		funcionario.taxa = sc.nextDouble();
+		
+		System.out.println("Dados do funcionário:" + funcionario.nome + ", " + funcionario.novoSalario());
+		
+		System.out.println();
+		System.out.println("Digite a porcentagem que deseja adicionar ao salario: ");
+		double porcentagem = sc.nextDouble();
+		funcionario.calculoSalario(porcentagem);
+		
+		System.out.println();
+		System.out.println("Dados do funcionário:" + funcionario.nome + ", " );
+		System.out.println(funcionario.salarioTaxa());
+		
+		sc.close();
+	}
+}
