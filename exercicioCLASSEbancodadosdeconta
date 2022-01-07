@@ -1,0 +1,87 @@
+package entidades;
+
+public class Banco {
+	public int conta;
+	public String nome;
+	public double deposito;
+	
+	
+	
+	public void novoDeposito(double deposito) {
+    	this.deposito = this.deposito + deposito;
+    }
+    
+    public void saqueConta (double deposito) {
+    	this.deposito = this.deposito - deposito - 5;
+    }
+    
+    public String toString() {
+    	return  "Conta criada:"
+    			
+    			+ "Conta: "
+    			+ conta
+    			+ ", "
+    			+ " Nome: "
+    			+nome
+    			+ " Saldo: $"
+    			+ deposito;
+    }
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package aplicacação;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+import entidades.Banco;
+
+public class programa {
+
+	public static void main(String[] args) {
+	
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		Banco banco = new Banco();
+		
+		System.out.println("Digite os dados solicitados: ");
+		System.out.print("Conta:");
+		banco.conta = sc.nextInt();
+		System.out.print("Nome: ");
+		sc.nextLine();
+		banco.nome = sc.nextLine();
+		
+		System.out.println();
+		System.out.print("Deseja realizar um depósito inicial (S/N): ");
+		
+		char resposta = sc.next().charAt(0);
+		
+			if(resposta == 'S') {
+				System.out.println("Valor do depósito: ");
+				banco.deposito = sc.nextDouble();
+				System.out.print(banco.toString());
+			}
+			else {
+				System.out.print(banco.toString());
+			}
+			
+		System.out.println();
+		System.out.println("Digite o valor do novo depósito: ");
+		double deposito = sc.nextDouble();
+		banco.novoDeposito(deposito);
+		
+		System.out.println();
+		System.out.println("Conta atualizada:" + banco.toString());
+		
+		System.out.println();
+		System.out.println("Digite o valor do saque: ");
+		deposito = sc.nextDouble();
+		banco.saqueConta (deposito);
+		
+		System.out.println();
+		System.out.println("COnta atualizada:" + banco.toString());
+		
+		sc.close();
+	}
+}
