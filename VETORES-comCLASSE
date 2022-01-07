@@ -1,0 +1,68 @@
+package entidadades;
+
+public class VTproduto {
+	
+	private String nome;
+	private double preço;
+	
+	public VTproduto(String nome, double preço) {
+		super();
+		this.nome = nome;
+		this.preço = preço;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public double getPreço() {
+		return preço;
+	}
+
+	public void setPreço(double preço) {
+		this.preço = preço;
+	}
+
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package aplicacação;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+import entidadades.VTproduto;
+
+public class programa {
+
+	public static void main(String[] args) {
+	
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		int n = sc.nextInt();
+		
+		VTproduto[] vetor = new VTproduto[n];
+		
+		for (int i=0; i<n; i++) { //a variável 'n' poderia ser substituída por vetor.leigth
+			sc.nextLine();
+			String nome = sc.nextLine();
+			double preço = sc.nextDouble();
+			vetor[i] = new VTproduto(nome, preço);
+		}
+		
+		double soma = 0.0;
+		for (int i=0; i<n; i++) {
+			soma = soma + vetor[i].getPreço();
+		}
+		
+		double resultado = soma / n;
+		
+		System.out.println("Média de preço: " + resultado);
+		
+		sc.close();
+	}
+}
