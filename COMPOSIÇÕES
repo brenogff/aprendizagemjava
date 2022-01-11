@@ -1,0 +1,247 @@
+package entidades.enums;
+
+public enum NivelTrabalho {
+	
+	JUNIOR,
+	MID_LEVEL,
+	SENIOR;
+
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package entidades;
+
+public class Departamento {
+	
+	private String nome;
+	
+	public Departamento() {
+
+	}
+
+	public Departamento(String nome) {
+		this.nome = nome;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package entidades;
+
+import java.util.Date;
+
+public class ContratoHora {
+	
+	private Date date;
+	private double valorPorHora;
+	private Integer horas;
+	
+	public ContratoHora() {
+		
+	}
+
+	public ContratoHora(Date date, double valorPorHora, Integer horas) {
+		this.date = date;
+		this.valorPorHora = valorPorHora;
+		this.horas = horas;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public double getValorPorHora() {
+		return valorPorHora;
+	}
+
+	public void setValorPorHora(double valorPorHora) {
+		this.valorPorHora = valorPorHora;
+	}
+
+	public Integer getHoras() {
+		return horas;
+	}
+
+	public void setHoras(Integer horas) {
+		this.horas = horas;
+	}
+
+	public void add(ContratoHora contratos) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void remove(ContratoHora contratos) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public double valorTotal() {
+		return valorPorHora * horas;
+	}
+
+	public double totalValor() {
+		// TODO Auto-generated method stub
+		return valorPorHora * horas;
+	}
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package entidades;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import entidades.enums.NivelTrabalho;
+
+public class Trabalhos {
+	
+	private String nome;
+	private NivelTrabalho nivel;
+	private Double salarioBase;
+	
+	private Departamento departamento;
+	private List<ContratoHora> contratos = new ArrayList<>();
+	
+	public Trabalhos() {
+	}
+
+	public Trabalhos(String nome, NivelTrabalho nivel, Double salarioBase, Departamento departamento) {
+		this.nome = nome;
+		this.nivel = nivel;
+		this.salarioBase = salarioBase;
+		this.departamento = departamento;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public NivelTrabalho getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(NivelTrabalho nivel) {
+		this.nivel = nivel;
+	}
+
+	public Double getSalarioBase() {
+		return salarioBase;
+	}
+
+	public void setSalarioBase(Double salarioBase) {
+		this.salarioBase = salarioBase;
+	}
+
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+
+	public List<ContratoHora> getContratos() {
+		return contratos;
+	}
+	
+	public void AddContrato(ContratoHora contratos) {
+		contratos.add(contratos);
+	}
+	
+	public void RemoveContrato(ContratoHora contratos) {
+		contratos.remove(contratos);
+	}
+	
+	public double income(int ano, int mes) {
+		double soma = salarioBase;
+		Calendar cal = Calendar.getInstance();
+		for (ContratoHora c : contratos) {
+			cal.setTime(c.getDate()); 
+			int c_ano = cal.get(Calendar.YEAR);
+			int c_mes = 1 + cal.get(Calendar.MONTH);  
+			if (ano == c_ano && mes == c_mes) {
+				soma = soma + c.totalValor();
+			} 
+		}
+		return soma;
+	}
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package aplicacação;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Scanner;
+
+import entidades.ContratoHora;
+import entidades.Departamento;
+import entidades.Trabalhos;
+import entidades.enums.NivelTrabalho;
+
+public class programa {
+
+	public static void main(String[] args) throws ParseException {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+		System.out.print("Digite o nome do Departamento: ");
+		String nomeDepartamento = sc.nextLine();
+		System.out.println("Digite a data do Trabalho: ");
+		System.out.print("Nome: ");
+		String nomeTrabalho = sc.nextLine();
+		System.out.print("Nivel: ");
+		String nivelTrabalho = sc.nextLine();
+		System.out.print("Base do salario: ");
+		Double baseSalario = sc.nextDouble();
+		
+		Trabalhos trabalhos = new Trabalhos(nomeTrabalho, NivelTrabalho.valueOf(nivelTrabalho), baseSalario, new Departamento(nomeDepartamento));
+		
+		System.out.print("São quantos contratos de trabalhos: ");
+		int n = sc.nextInt();
+		
+		for (int i=1; i<n; i ++) {
+			System.out.println("Digite contrato #" + i + " data: ");
+			System.out.print("Date (DD/MM/YYYY): ");
+			Date dataContrato = sdf.parse(sc.next());
+			System.out.print("Valor por hora: ");
+			double valorPorHora = sc.nextDouble();
+			System.out.print("Duração de horas: ");
+			int horas = sc.nextInt();
+			ContratoHora contrato = new ContratoHora(dataContrato, valorPorHora, horas);
+			trabalhos.AddContrato(contrato);
+			
+		}
+		
+		System.out.println();
+		System.out.print("Entre com o mês e ano para calcular o salário (MM/YYYY): ");
+		String mesAno = sc.next();
+		int mes = Integer.parseInt(mesAno.substring(0, 2));
+		int ano = Integer.parseInt(mesAno.substring(3));
+		System.out.println("Nome: " + trabalhos.getNome());
+		System.out.println("Departamento: " + trabalhos.getDepartamento().getNome());
+		System.out.println("Ganho do trabalhador " + mesAno + ":" + String.format("%.2f", trabalhos.income(ano, mes)));
+		
+		sc.close();
+	}
+}
