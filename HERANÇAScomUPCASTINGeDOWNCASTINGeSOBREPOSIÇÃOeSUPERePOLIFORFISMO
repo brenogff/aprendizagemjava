@@ -164,3 +164,23 @@ public class programa {
 		
 	}
 }
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package aplicacação;
+
+import entidades.Conta;
+import entidades.ContaPoupança;
+
+public class programa {
+
+	public static void main(String[] args) {
+		
+		Conta x = new Conta (1020, "Alex", 1000.0);
+		Conta y = new ContaPoupança (1023, "Maria", 1000.0, 0.01);
+		
+		x.operacaoSaque(50.0);
+		y.operacaoSaque(50.0);
+		
+		System.out.println(x.getBalanço());
+		System.out.println(y.getBalanço());
+		
+	}
