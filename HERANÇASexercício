@@ -1,0 +1,133 @@
+package entidades;
+
+public class Empregado {
+	
+	private String nome;
+	private Integer horas;
+	private Double valorPorHora;
+	
+	public Empregado() {
+		
+	}
+
+	public Empregado(String nome, Integer horas, Double valorPorHora) {
+		super();
+		this.nome = nome;
+		this.horas = horas;
+		this.valorPorHora = valorPorHora;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Integer getHoras() {
+		return horas;
+	}
+
+	public void setHoras(Integer horas) {
+		this.horas = horas;
+	}
+
+	public Double getValorPorHora() {
+		return valorPorHora;
+	}
+
+	public void setValorPorHora(Double valorPorHora) {
+		this.valorPorHora = valorPorHora;
+	}
+	
+	public double pagamento() {
+		return horas * valorPorHora;
+	}
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package entidades;
+
+public class EmpregadoTerceirizado extends Empregado {
+	
+	private Double cobrançaAdicional;
+	
+	public EmpregadoTerceirizado() {
+		
+	}
+
+	public EmpregadoTerceirizado(String nome, Integer horas, Double valorPorHora, Double cobrançaAdicional) {
+		super(nome, horas, valorPorHora);
+		this.cobrançaAdicional = cobrançaAdicional;
+	}
+
+	public Double getCobrançaAdicional() {
+		return cobrançaAdicional;
+	}
+
+	public void setCobrançaAdicional(Double cobrançaAdicional) {
+		this.cobrançaAdicional = cobrançaAdicional;
+	}
+
+	@Override
+	public double pagamento() {
+		return super.pagamento() + cobrançaAdicional + 1.1;
+	}
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package aplicacação;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+
+import entidades.Empregado;
+import entidades.EmpregadoTerceirizado;
+
+public class programa {
+
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		List<Empregado> list = new ArrayList<>();
+		
+		System.out.println("Digite o número de empregados: ");
+		int n = sc.nextInt();
+		
+		for (int i=1; i<=n; i++) {
+			System.out.println("Empregado #" + i + " data: ");
+			System.out.print("O empregado é terceirizado (S/N): ");
+			char resposta = sc.next().charAt(0);
+			System.out.print("Nome: ");
+			sc.nextLine();
+			String nome = sc.nextLine();
+			System.out.print("Horas: ");
+			int horas = sc.nextInt();
+			System.out.print("Valor por hora: ");
+			double valorPorHora = sc.nextDouble();
+			
+			if (resposta == 'S') {
+				System.out.print("Cobrança adicional: ");
+				double cobrançaAdicional = sc.nextDouble();
+				Empregado empregado = new EmpregadoTerceirizado(nome, horas, valorPorHora, cobrançaAdicional);
+				list.add(empregado);
+			}
+			else {
+				Empregado empregado = new Empregado (nome, horas, valorPorHora);
+				list.add(empregado);
+			}
+		}
+		
+		System.out.println();
+		System.out.println("Pagamentos: ");
+		for (Empregado empregado : list) {
+			System.out.println(empregado.getNome() + " - $ " + String.format("%.2f", empregado.pagamento()));
+		}
+		System.out.println();
+		
+		sc.close();
+	}
+}
